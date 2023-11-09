@@ -1,4 +1,4 @@
-import gym
+import gymnasium as gym
 from elegantrl.agents import AgentModSAC
 from elegantrl.train.config import get_gym_env_args, Arguments
 from elegantrl.train.run import *

@@ -12,8 +12,8 @@ setup(
         "torch",
         "numpy",
         "matplotlib",
-        "gym",
-        "gym[Box2D]",
+        "gymnasium",
+        "gymnasium[Box2D]",
     ],
     description="Lightweight, Efficient and Stable DRL Implementation Using PyTorch",
     classifiers=[

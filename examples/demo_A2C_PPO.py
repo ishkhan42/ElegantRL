@@ -99,7 +99,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_ppo_a2c_for_lunar_lander_continuous():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentPPO, AgentA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -147,7 +147,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_ppo_a2c_for_lunar_lander_continuous_vec_env():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentPPO, AgentA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -201,7 +201,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_ppo_a2c_for_bipedal_walker():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentPPO, AgentA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -255,7 +255,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_ppo_a2c_for_bipedal_walker_vec_env():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentPPO, AgentA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -453,7 +453,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_discrete_ppo_a2c_for_cartpole():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentDiscretePPO, AgentDiscreteA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -504,7 +504,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_discrete_ppo_a2c_for_cartpole_vec_env():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentDiscretePPO, AgentDiscreteA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -554,7 +554,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_discrete_ppo_a2c_for_lunar_lander():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentDiscretePPO, AgentDiscreteA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -604,7 +604,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   etc.
 
 
 def train_discrete_ppo_a2c_for_lunar_lander_vec_env():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentDiscretePPO, AgentDiscreteA2C][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum

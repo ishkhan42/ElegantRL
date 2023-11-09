@@ -201,7 +201,7 @@ def get_gym_env_args(env, if_print) -> dict:  # [ElegantRL.2021.12.12]
         'if_discrete': if_discrete, # [bool] action space is discrete or continuous
     }
     """
-    import gym
+    import gymnasium as gym
 
     env_num = getattr(env, 'env_num') if hasattr(env, 'env_num') else 1
 

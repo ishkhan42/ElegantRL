@@ -1,4 +1,4 @@
-import gym.spaces
+import gymnasium as gym.spaces
 import isaacgym
 import numpy as np
 import torch

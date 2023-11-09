@@ -184,8 +184,8 @@ def get_cumulative_rewards_and_steps(env, actor, if_render: bool = False) -> Tup
 
         if done:
             break
-    else:
-        print("| get_rewards_and_step: WARNING. max_step > 12345")
+    # else:
+    #     print("| get_rewards_and_step: WARNING. max_step > 12345")
     returns = getattr(env, 'cumulative_returns', returns)
     steps += 1
     return returns, steps
@@ -304,7 +304,7 @@ def draw_learning_curve(recorder: np.ndarray = None,
 
 
 def demo_evaluator_actor_pth():
-    import gym
+    import gymnasium as gym
     from elegantrl.agents.AgentPPO import AgentPPO
     from elegantrl.train.config import Config, build_env
 
@@ -343,7 +343,7 @@ def demo_evaluator_actor_pth():
 
 
 def demo_evaluate_actors(dir_path: str, gpu_id: int, agent, env_args: dict, eval_times=2, net_dim=128):
-    import gym
+    import gymnasium as gym
     from elegantrl.train.config import build_env
     # dir_path = './LunarLanderContinuous-v2_PPO_1'
     # gpu_id = 0

@@ -114,8 +114,8 @@ def build_env(env_class=None, env_args: dict = None, gpu_id: int = -1):
         num_envs = env_args['num_envs']
         env = VecEnv(env_class=env_class, env_args=env_args, num_envs=num_envs, gpu_id=gpu_id)
     elif env_class.__module__ == 'gym.envs.registration':
-        import gym
-        assert '0.18.0' <= gym.__version__ <= '0.25.2'  # pip3 install gym==0.24.0
+        import gymnasium as gym
+        
         gym.logger.set_level(40)  # Block warning
         env = env_class(id=env_args['env_name'])
     else:
@@ -154,12 +154,12 @@ def get_gym_env_args(env, if_print: bool) -> dict:
         'if_discrete': if_discrete, # [bool] action space is discrete or continuous
     }
     """
-    import gym
+    import gymnasium as gym
 
     if_gym_standard_env = {'unwrapped', 'observation_space', 'action_space', 'spec'}.issubset(dir(env))
 
     if if_gym_standard_env and (not hasattr(env, 'num_envs')):  # isinstance(env, gym.Env):
-        assert '0.18.0' <= gym.__version__ <= '0.25.2'  # pip3 install gym==0.24.0
+        
         env_name = env.unwrapped.spec.id
         num_envs = getattr(env, 'num_envs', 1)
         max_step = getattr(env, '_max_episode_steps', 12345)

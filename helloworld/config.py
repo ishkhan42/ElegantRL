@@ -1,5 +1,5 @@
 import os
-import gym
+import gymnasium as gym
 import torch
 import numpy as np
 
@@ -134,8 +134,8 @@ def kwargs_filter(function, kwargs: dict) -> dict:
 
 def build_env(env_class=None, env_args=None):
     if env_class.__module__ == 'gym.envs.registration':  # special rule
-        import gym
-        assert '0.18.0' <= gym.__version__ <= '0.25.2'  # pip3 install gym==0.24.0
+        import gymnasium as gym
+        
         gym.logger.set_level(40)  # Block warning
         env = env_class(id=env_args['env_name'])
     else:

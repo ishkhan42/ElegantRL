@@ -1,5 +1,5 @@
 import os
-import gym
+import gymnasium as gym
 from config import Config, get_gym_env_args
 from agent import AgentPPO
 from run import train_agent, render_agent

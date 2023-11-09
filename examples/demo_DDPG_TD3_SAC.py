@@ -113,7 +113,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   objA   etc.
 
 
 def train_ddpg_td3_sac_for_lunar_lander_continuous():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentTD3, AgentSAC, AgentModSAC][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -162,7 +162,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   objA   etc.
 
 
 def train_ddpg_td3_sac_for_lunar_lander_continuous_vec_env():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentTD3, AgentSAC, AgentModSAC][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum

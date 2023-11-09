@@ -53,7 +53,7 @@ def demo_evaluator_actor_h_term_to_str():
         layer_num = 3
     elif env_name == 'Swimmer-v3':
         # env_func = GymNormaEnv  # gym.make
-        import gym
+        import gymnasium as gym
         env_func = gym.make
         env_args = {
             'action_dim': 2,

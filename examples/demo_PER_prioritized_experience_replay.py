@@ -10,7 +10,7 @@ if True:  # write after `sys.path.append("..")`
 
 
 def train_ddpg_td3_sac_for_lunar_lander_continuous():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentTD3, AgentSAC, AgentModSAC, AgentDDPG][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum

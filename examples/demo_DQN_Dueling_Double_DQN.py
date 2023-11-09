@@ -10,7 +10,7 @@ if True:  # write after `sys.path.append("..")`
 
 
 def train_dqn_for_cartpole():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentD3QN, AgentDoubleDQN, AgentDuelingDQN, AgentDQN][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -60,7 +60,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   objA   etc.
 
 
 def train_dqn_for_cartpole_vec_env():
-    import gym
+    import gymnasium as gym
     num_envs = 16
 
     agent_class = [AgentD3QN, AgentDoubleDQN, AgentDuelingDQN, AgentDQN][DRL_ID]  # DRL algorithm name
@@ -117,7 +117,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   objA   etc.
 
 
 def train_dqn_for_lunar_lander():
-    import gym
+    import gymnasium as gym
 
     agent_class = [AgentD3QN, AgentDoubleDQN, AgentDuelingDQN, AgentDQN][DRL_ID]  # DRL algorithm name
     env_class = gym.make  # run a custom env: PendulumEnv, which based on OpenAI pendulum
@@ -167,7 +167,7 @@ ID     Step    Time |    avgR   stdR   avgS  stdS |    expR   objC   objA   etc.
 
 
 def train_dqn_for_lunar_lander_vec_env():
-    import gym
+    import gymnasium as gym
     num_envs = 16
 
     agent_class = [AgentD3QN, AgentDoubleDQN, AgentDuelingDQN, AgentDQN][DRL_ID]  # DRL algorithm name

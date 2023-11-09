@@ -9,7 +9,7 @@ def check_get_rewards_and_steps(net_dims=(64, 32)):
     pass
 
     """discrete env"""
-    from env import gym
+    from env import gymnasium as gym
     env_args = {'env_name': 'CartPole-v1', 'state_dim': 4, 'action_dim': 2, 'if_discrete': True}
     env_class = gym.make
     env = build_env(env_class=env_class, env_args=env_args)

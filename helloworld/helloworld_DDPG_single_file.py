@@ -3,7 +3,7 @@ import sys
 import time
 from copy import deepcopy
 
-import gym
+import gymnasium as gym
 import numpy as np
 import torch
 import torch.nn as nn
@@ -118,7 +118,7 @@ def kwargs_filter(function, kwargs: dict) -> dict:
 
 def build_env(env_class=None, env_args=None):
     if env_class.__module__ == 'gym.envs.registration':  # special rule
-        assert '0.18.0' <= gym.__version__ <= '0.25.2'  # pip3 install gym==0.24.0
+        
         env = env_class(id=env_args['env_name'])
     else:
         env = env_class(**kwargs_filter(env_class.__init__, env_args.copy()))
