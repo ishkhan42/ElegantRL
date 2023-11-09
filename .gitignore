@@ -1,19 +1,55 @@
-# Python-created cache files
-**/__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 
-# Saved actor/critic networks from training
-*.pth
+# C extensions
+*.so
 
-# Plots, recorders, replay buffers
-*plot_*.jpg
-*recorder.npy
-*replay*.npz
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Runs created by Isaac Gym
-runs/
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# VS Code
-**/.vscode
-# JetBrains folder
-.idea/
-.env-erl/
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+# PyCharm
+.idea
+
+wandb
