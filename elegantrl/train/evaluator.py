@@ -24,6 +24,8 @@ class Evaluator:
         self.if_keep_save = args.if_keep_save
         self.if_over_write = args.if_over_write
 
+        self.logger = args.log_function
+
         self.recorder_path = f'{cwd}/recorder.npy'
         self.recorder = []  # total_step, r_avg, r_std, obj_c, ...
         self.max_r = -np.inf
@@ -89,6 +91,18 @@ class Evaluator:
         print(f"{self.agent_id:<3}{self.total_step:8.2e}{train_time:8.0f} |"
               f"{avg_r:8.2f}{std_r:7.1f}{avg_s:7.0f}{std_s:6.0f} |"
               f"{exp_r:8.2f}{''.join(f'{n:7.2f}' for n in logging_tuple)}")
+
+        self.logger({
+            'step': self.total_step,
+            'time': train_time,
+            'avgR': avg_r,
+            'stdR': std_r,
+            'avgS': avg_s,
+            'stdS': std_s,
+            'expR': exp_r,
+            'objC': logging_tuple[0],
+            'objA': logging_tuple[1],
+        }) if self.logger else None
 
         if_save = avg_r > prev_max_r
         if if_save:

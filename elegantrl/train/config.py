@@ -76,6 +76,8 @@ class Config:
         self.eval_env_class = None  # eval_env = eval_env_class(*eval_env_args)
         self.eval_env_args = None  # eval_env = eval_env_class(*eval_env_args)
 
+        self.log_function = None  # user-defined function to log info in the training process
+
     def init_before_training(self):
         np.random.seed(self.random_seed)
         torch.manual_seed(self.random_seed)
