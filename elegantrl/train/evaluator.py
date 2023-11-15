@@ -102,6 +102,7 @@ class Evaluator:
             'expR': exp_r,
             'objC': logging_tuple[0],
             'objA': logging_tuple[1],
+            'info': self.env.get_info()
         }) if self.logger else None
 
         if_save = avg_r > prev_max_r
