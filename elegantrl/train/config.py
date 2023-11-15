@@ -18,12 +18,12 @@ class Config:
         if env_args is None:  # dummy env_args
             env_args = {'env_name': None,
                         'num_envs': 1,
-                        'max_step': 12345,
+                        'max_step': None,
                         'state_dim': None,
                         'action_dim': None,
                         'if_discrete': None, }
         env_args.setdefault('num_envs', 1)  # `num_envs=1` in default in single env.
-        env_args.setdefault('max_step', 12345)  # `max_step=12345` in default, which is a large enough value.
+        env_args.setdefault('max_step', None)  # `max_step=12345` in default, which is a large enough value.
         self.env_name = env_args['env_name']  # the name of environment. Be used to set 'cwd'.
         self.num_envs = env_args['num_envs']  # the number of sub envs in vectorized env. `num_envs=1` in single env.
         self.max_step = env_args['max_step']  # the max step number of an episode. 'set as 12345 in default.
@@ -124,7 +124,7 @@ def build_env(env_class=None, env_args: dict = None, gpu_id: int = -1):
         env = env_class(**kwargs_filter(env_class.__init__, env_args.copy()))
 
     env_args.setdefault('num_envs', 1)
-    env_args.setdefault('max_step', 12345)
+    env_args.setdefault('max_step', None)
 
     for attr_str in ('env_name', 'num_envs', 'max_step', 'state_dim', 'action_dim', 'if_discrete'):
         setattr(env, attr_str, env_args[attr_str])
@@ -185,7 +185,7 @@ def get_gym_env_args(env, if_print: bool) -> dict:
     else:
         env_name = getattr(env, 'env_name', 'env')
         num_envs = getattr(env, 'num_envs', 1)
-        max_step = getattr(env, 'max_step', 12345)
+        max_step = getattr(env, 'max_step', None)
         state_dim = env.state_dim
         action_dim = env.action_dim
         if_discrete = env.if_discrete
