@@ -28,15 +28,19 @@ def train_agent(args: Config):
     env = build_env(args.env_class, args.env_args, args.gpu_id)
 
     '''init agent'''
-    agent = args.agent_class(args.net_dims, args.state_dim, args.action_dim, gpu_id=args.gpu_id, args=args)
+    agent = args.agent_class(args.net_dims, args.state_dim,
+                             args.action_dim, gpu_id=args.gpu_id, args=args)
     agent.save_or_load_agent(args.cwd, if_save=False)
 
     '''init agent.last_state'''
     state = env.reset()
     if args.num_envs == 1:
         assert state.shape == (args.state_dim,)
-        assert isinstance(state, np.ndarray)
-        state = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
+        assert isinstance(state, np.ndarray) or isinstance(state, torch.Tensor)
+        if isinstance(state, np.ndarray):
+            state = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
+        else:
+            state = state.unsqueeze(0)
     else:
         assert state.shape == (args.num_envs, args.state_dim)
         assert isinstance(state, torch.Tensor)
@@ -89,7 +93,8 @@ def train_agent(args: Config):
         logging_tuple = agent.update_net(buffer)
         torch.set_grad_enabled(False)
 
-        evaluator.evaluate_and_save(actor=agent.act, steps=horizon_len, exp_r=exp_r, logging_tuple=logging_tuple)
+        evaluator.evaluate_and_save(actor=agent.act, steps=horizon_len,
+                                    exp_r=exp_r, logging_tuple=logging_tuple)
         if_train = (evaluator.total_step <= break_step) and (not os.path.exists(f"{cwd}/stop"))
 
     print(f'| UsedTime: {time.time() - evaluator.start_time:>7.0f} | SavedDir: {cwd}')
@@ -114,7 +119,8 @@ def train_agent_multiprocessing(args: Config):
     evaluator_pipe = Pipe(duplex=True)
 
     '''build Process'''
-    learner = Learner(learner_pipe=learner_pipe, worker_pipes=worker_pipes, evaluator_pipe=evaluator_pipe, args=args)
+    learner = Learner(learner_pipe=learner_pipe, worker_pipes=worker_pipes,
+                      evaluator_pipe=evaluator_pipe, args=args)
     workers = [Worker(worker_pipe=worker_pipe, learner_pipe=learner_pipe, worker_id=worker_id, args=args)
                for worker_id, worker_pipe in enumerate(worker_pipes)]
     evaluator = EvaluatorProc(evaluator_pipe=evaluator_pipe, args=args)
@@ -138,7 +144,8 @@ class Learner(Process):
         torch.set_grad_enabled(False)
 
         '''init agent'''
-        agent = args.agent_class(args.net_dims, args.state_dim, args.action_dim, gpu_id=args.gpu_id, args=args)
+        agent = args.agent_class(args.net_dims, args.state_dim,
+                                 args.action_dim, gpu_id=args.gpu_id, args=args)
         agent.save_or_load_agent(args.cwd, if_save=False)
 
         '''init buffer'''
@@ -168,16 +175,20 @@ class Learner(Process):
         cwd = args.cwd
         del args
 
-        agent.last_state = torch.empty((num_seqs, state_dim), dtype=torch.float32, device=agent.device)
+        agent.last_state = torch.empty(
+            (num_seqs, state_dim), dtype=torch.float32, device=agent.device)
 
-        states = torch.empty((horizon_len, num_seqs, state_dim), dtype=torch.float32, device=agent.device)
-        actions = torch.empty((horizon_len, num_seqs, action_dim), dtype=torch.float32, device=agent.device)
+        states = torch.empty((horizon_len, num_seqs, state_dim),
+                             dtype=torch.float32, device=agent.device)
+        actions = torch.empty((horizon_len, num_seqs, action_dim),
+                              dtype=torch.float32, device=agent.device)
         rewards = torch.empty((horizon_len, num_seqs), dtype=torch.float32, device=agent.device)
         undones = torch.empty((horizon_len, num_seqs), dtype=torch.bool, device=agent.device)
         if if_off_policy:
             buffer_items_tensor = (states, actions, rewards, undones)
         else:
-            logprobs = torch.empty((horizon_len, num_seqs), dtype=torch.float32, device=agent.device)
+            logprobs = torch.empty((horizon_len, num_seqs),
+                                   dtype=torch.float32, device=agent.device)
             buffer_items_tensor = (states, actions, logprobs, rewards, undones)
 
         if_train = True
@@ -247,7 +258,8 @@ class Worker(Process):
         env = build_env(args.env_class, args.env_args, args.gpu_id)
 
         '''init agent'''
-        agent = args.agent_class(args.net_dims, args.state_dim, args.action_dim, gpu_id=args.gpu_id, args=args)
+        agent = args.agent_class(args.net_dims, args.state_dim,
+                                 args.action_dim, gpu_id=args.gpu_id, args=args)
         agent.save_or_load_agent(args.cwd, if_save=False)
 
         '''init agent.last_state'''
@@ -313,7 +325,8 @@ class EvaluatorProc(Process):
         '''loop'''
         cwd = args.cwd
         break_step = args.break_step
-        device = torch.device(f"cuda:{args.gpu_id}" if (torch.cuda.is_available() and (args.gpu_id >= 0)) else "cpu")
+        device = torch.device(f"cuda:{args.gpu_id}" if (
+            torch.cuda.is_available() and (args.gpu_id >= 0)) else "cpu")
         del args
 
         if_train = True
@@ -355,5 +368,6 @@ def render_agent(env_class, env_args: dict, net_dims: [int], agent_class, actor_
     print(f"| render and load actor from: {actor_path}")
     actor.load_state_dict(torch.load(actor_path, map_location=lambda storage, loc: storage))
     for i in range(render_times):
-        cumulative_reward, episode_step = get_cumulative_rewards_and_steps(env, actor, if_render=True)
+        cumulative_reward, episode_step = get_cumulative_rewards_and_steps(
+            env, actor, if_render=True)
         print(f"|{i:4}  cumulative_reward {cumulative_reward:9.3f}  episode_step {episode_step:5.0f}")
