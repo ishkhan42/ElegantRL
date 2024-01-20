@@ -171,7 +171,7 @@ class QNetTwinDuel(QNetBase):  # D3QN: Dueling Double DQN
 
 
 class ActorBase(nn.Module):
-    def __init__(self, state_dim: int, action_dim: int):
+    def __init__(self, state_dim: [int], action_dim: int):
         super().__init__()
         self.state_dim = state_dim
         self.action_dim = action_dim
@@ -179,8 +179,13 @@ class ActorBase(nn.Module):
         self.explore_noise_std = None  # standard deviation of exploration action noise
         self.ActionDist = torch.distributions.normal.Normal
 
-        self.state_avg = nn.Parameter(torch.zeros((state_dim,)), requires_grad=False)
-        self.state_std = nn.Parameter(torch.ones((state_dim,)), requires_grad=False)
+        if isinstance(state_dim, int):
+            self.state_avg = nn.Parameter(torch.zeros((state_dim,)), requires_grad=False)
+            self.state_std = nn.Parameter(torch.ones((state_dim,)), requires_grad=False)
+        else:
+            self.state_avg = nn.Parameter(torch.zeros(state_dim), requires_grad=False)
+            self.state_std = nn.Parameter(torch.ones(state_dim), requires_grad=False)
+
 
     def state_norm(self, state: Tensor) -> Tensor:
         return (state - self.state_avg) / self.state_std
