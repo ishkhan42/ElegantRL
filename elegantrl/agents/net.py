@@ -356,7 +356,7 @@ class CriticBase(nn.Module):  # todo state_norm, value_norm
         self.net = None  # build_mlp(dims=[state_dim + action_dim, *dims, 1])
 
         if isinstance(state_dim, int):
-        self.state_avg = nn.Parameter(torch.zeros((state_dim,)), requires_grad=False)
+            self.state_avg = nn.Parameter(torch.zeros((state_dim,)), requires_grad=False)
             self.state_std = nn.Parameter(torch.ones((state_dim,)), requires_grad=False)
         else:
             self.state_avg = nn.Parameter(torch.zeros(state_dim), requires_grad=False)

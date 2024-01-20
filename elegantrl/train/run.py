@@ -35,7 +35,7 @@ def train_agent(args: Config):
     '''init agent.last_state'''
     state = env.reset()
     if args.num_envs == 1:
-        assert state.shape == (args.state_dim,)
+        assert state.shape == (args.state_dim,) or state.shape == args.state_dim
         assert isinstance(state, np.ndarray) or isinstance(state, torch.Tensor)
         if isinstance(state, np.ndarray):
             state = torch.tensor(state, dtype=torch.float32, device=agent.device).unsqueeze(0)
@@ -45,7 +45,7 @@ def train_agent(args: Config):
         assert state.shape == (args.num_envs, args.state_dim)
         assert isinstance(state, torch.Tensor)
         state = state.to(agent.device)
-    assert state.shape == (args.num_envs, args.state_dim)
+    assert state.shape == (args.num_envs, args.state_dim) or  state.shape == (args.num_envs, *args.state_dim)
     assert isinstance(state, torch.Tensor)
     agent.last_state = state.detach()
 
